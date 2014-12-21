@@ -9,17 +9,19 @@ namespace :feed_items do
     require 'open-uri'
     url = 'http://www.macleans.ca/multimedia/feed/'
 
-    num_affected = 0
+    num_added = 0
+    num_updated = 0
     open(url) do |rss|
       feed = RSS::Parser.parse(rss)
-      num_affected = feed.items.length
       feed.items.each do |item|
-        feed_item = FeedItem.find_or_initialize_by(guid: item.guid)
+        feed_item = FeedItem.where(guid: item.guid.to_s).first_or_initialize
+        num_added += 1 if feed_item.id.nil?
+        num_updated += 1 unless feed_item.id.nil?
         feed_item.update(title: item.title)
       end
     end
 
-    puts "Update feed items done: added or updated #{num_affected} feed item(s)"
+    puts "Update feed items done: added #{num_added} and updated #{num_updated} feed items"
   end
 
   desc 'Purge feed items from the db older than seven days old (should be run once per day)'
