@@ -1,7 +1,7 @@
 # See https://devcenter.heroku.com/articles/scheduler
 
 namespace :feed_items do
-  desc 'Update the database with current feed items'
+  desc 'Update the db with current feed items (should be run once per hour)'
   task :update => :environment do
     puts 'Update feed items start'
     feed_item = FeedItem.find_or_initialize_by(guid: 'a4')
@@ -10,7 +10,7 @@ namespace :feed_items do
     puts "Update feed items done: added or updated #{num_affected} feed item(s)"
   end
 
-  desc 'Purge feed items from the database that are more than seven days old'
+  desc 'Purge feed items from the db older than seven days old (should be run once per day)'
   task :purge_old => :environment do
     puts 'Purge old feed items start'
     num_deleted = FeedItem.where('created_at < ?', 7.days.ago).destroy_all.length
