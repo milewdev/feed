@@ -5,6 +5,3 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
-FeedItem.create(title: 'article 1', guid: 'a1')
-FeedItem.create(title: 'article 2', guid: 'a2')
