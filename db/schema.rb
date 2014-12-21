@@ -13,13 +13,13 @@
 
 ActiveRecord::Schema.define(version: 20141221031458) do
 
-  create_table "rss_items", force: :cascade do |t|
+  create_table "feed_items", force: :cascade do |t|
     t.string   "title"
     t.string   "guid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "rss_items", ["guid"], name: "index_rss_items_on_guid"
+  add_index "feed_items", ["guid"], name: "index_feed_items_on_guid"
 
 end
