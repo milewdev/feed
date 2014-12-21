@@ -2,6 +2,12 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+# See https://github.com/seattlerb/minitest
+require 'minitest/spec'
+
+# See https://github.com/freerange/mocha#rails
+require 'mocha/mini_test'
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
