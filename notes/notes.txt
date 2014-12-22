@@ -26,10 +26,17 @@ installation:
 
     $ heroku login
     $ heroku create
+    $ heroku apps:rename feed2014demo
     $ git push heroku master
+    $ heroku run rake db:migrate
 
-    See http://stackoverflow.com/a/15212531
-    See http://stackoverflow.com/a/5129733
+  - Populate the feed manually:
+
+    $ heroku run rake feed_items:update
+
+  - Test the app:
+
+    $ curl -w "\n" https://feed2014demo.herokuapp.com/feed_items
 
 
 minitest:
