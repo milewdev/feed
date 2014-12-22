@@ -38,7 +38,7 @@ installation:
 
   - Test the app:
 
-    $ curl -w "\n" https://feed2014demo.herokuapp.com/feed_items
+    $ curl -w "\n" https://feed2014demo.herokuapp.com
 
 
 minitest:
