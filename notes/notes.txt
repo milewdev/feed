@@ -27,6 +27,7 @@ installation:
     $ heroku login
     $ heroku create
     $ heroku apps:rename feed2014demo
+    $ heroku addons:add scheduler:standard
     $ git push heroku master
     $ heroku run rake db:migrate
 
