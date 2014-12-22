@@ -1,6 +1,6 @@
-class CreateV2Channels < ActiveRecord::Migration
+class CreateChannels < ActiveRecord::Migration
   def change
-    create_table :v2_channels do |t|
+    create_table :channels do |t|
       t.string :title
       t.string :link
       t.string :description

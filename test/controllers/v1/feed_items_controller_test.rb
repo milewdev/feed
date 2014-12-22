@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FeedItemsControllerTest < ActionController::TestCase
+class V1::FeedItemsControllerTest < ActionController::TestCase
   setup do
     @feed_item = feed_items(:one)
   end
