@@ -1,21 +1,35 @@
 installation:
-  After downloading the project's source code, run:
+  - Download the project's source code:
+
+    $ git clone https://devcenter.heroku.com/articles/getting-started-with-rails4 ~/work/feed
+
+  - Run bundler:
+
+    $ bundle install --without production
+
+    '--without production' ensure that postgres is not installed in development and
+    test environments.
+
+  - Create the development and test databases:
 
     $ bin/rake db:setup
 
-  to create the development and test databases.  Then run:
+  - Run the tests:
 
     $ rake test
 
-  to run the tests and verify that everything is working as expected.
+  - Install Heroku toolbelt:
 
-  Also, do:
+    https://devcenter.heroku.com/articles/getting-started-with-rails4
 
-    $ heroku keys:add
-    $ heroku git:remote -a feed
+  - Setup Heroku (you will need a Heroku account):
 
-  See http://stackoverflow.com/a/15212531
-  See http://stackoverflow.com/a/5129733
+    $ heroku login
+    $ heroku create
+    $ git push heroku master
+
+    See http://stackoverflow.com/a/15212531
+    See http://stackoverflow.com/a/5129733
 
 
 minitest:

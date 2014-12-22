@@ -1,15 +1,19 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '4.2.0'
 
+# TODO: should this go in group: :development?
 gem 'rails-api'
 
-gem 'spring', :group => :development
+gem 'spring', group: :development
 
+gem 'sqlite3', group: :development
 
-gem 'sqlite3'
+# Heroku does not support sqlite; see https://devcenter.heroku.com/articles/sqlite3
+gem 'pg', group: :production
 
+# See https://devcenter.heroku.com/articles/getting-started-with-rails4#heroku-gems
+gem 'rails_12factor', group: :production
 
 
 # To use ActiveModel has_secure_password
