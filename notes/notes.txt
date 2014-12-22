@@ -1,0 +1,57 @@
+installation:
+  After downloading the project's source code, run:
+
+    $ bin/rake db:setup
+
+  to create the development and test databases.  Then run:
+
+    $ rake test
+
+  to run the tests and verify that everything is working as expected.
+
+  Also, do:
+
+    $ heroku keys:add
+    $ heroku git:remote -a feed
+
+  See http://stackoverflow.com/a/15212531
+  See http://stackoverflow.com/a/5129733
+
+
+minitest:
+  Cheat sheet: http://mattsears.com/articles/2011/12/10/minitest-quick-reference
+
+
+minitest-spec-rails (using minitest spec with rails):
+  https://github.com/metaskills/minitest-spec-rails
+
+
+Heroku (PaaS):
+  Installation: https://devcenter.heroku.com/articles/getting-started-with-rails4
+
+
+Where to put tests for code in lib/
+  http://stackoverflow.com/a/800468
+
+
+Autoloading files in lib:
+  http://stackoverflow.com/a/19650564
+
+
+Recreating the test db:
+  $ RAILS_ENV=test bin/rake db:drop
+  $ RAILS_ENV=test bin/rake db:create
+  $ RAILS_ENV=test bin/rake db:migrate
+
+
+Example of invoking json via curl (here we update the title of the user with id 1):
+
+    curl -v -H "Accept: application/json" -H "Content-type: application/json" -X PATCH -d '{"user":{"title":"new title"}}' http://localhost:3000/users/1.json
+
+Note that for this to work you have to change this line in application_controller.rb:
+
+    protect_from_forgery with: :exception
+
+to this:
+
+    protect_from_forgery with: :null_session
