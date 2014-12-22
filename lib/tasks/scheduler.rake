@@ -2,7 +2,7 @@
 
 namespace :feed_items do
 
-  desc 'Update the db with current feed items'
+  desc 'Update the database with the lastest feed items'
   task :update => :environment do
     puts 'Update feed items start'
 
@@ -25,13 +25,20 @@ namespace :feed_items do
     puts "Update feed items done: added #{num_added} and updated #{num_updated} feed items"
   end
 
-  desc 'Purge feed items from the db older than seven days old'
+  desc 'Purge feed items from the database older than seven days'
   task :purge_old => :environment do
     puts 'Purge old feed items start'
     # Purge items that haven't appeared in the source feed for at least seven
     # days.  update_at will only be updated when an item is in the feed.
     num_deleted = FeedItem.where('updated_at < ?', 7.days.ago).destroy_all.length
     puts "Purge old feed items done: deleted #{num_deleted} feed item(s)"
+  end
+
+  desc 'Purge all feed items from the database'
+  task :purge_all => :environment do
+    puts 'Purge all feed items start'
+    num_deleted = FeedItem.destroy_all.length
+    puts "Purge all feed items done: deleted #{num_deleted} feed items(s)"
   end
 
   desc 'Add/update the latest feed items, purge old feed items'
