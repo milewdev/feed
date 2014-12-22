@@ -1,47 +1,28 @@
 # See https://devcenter.heroku.com/articles/scheduler
 
-namespace :feed_items do
+namespace :feed do
 
-  desc 'Update the database with the lastest feed items'
-  task :update => :environment do
-    puts 'Update feed items start'
+  desc 'Replace the items in the database with the those from the feed'
+  task :refresh => :environment do
+    puts 'Refresh start'
 
+    # Delete all existing records.
+    FeedItem.destroy_all
+
+    # Load the latest records from the feed.
     require 'rss'
     require 'open-uri'
     url = 'http://www.macleans.ca/multimedia/feed/'
-
-    num_added = 0
-    num_updated = 0
+    num_loaded = 0
     open(url) do |rss|
       feed = RSS::Parser.parse(rss)
+      num_loaded = feed.items.length
       feed.items.each do |item|
-        feed_item = FeedItem.where(guid: item.guid.to_s).first_or_initialize
-        num_added += 1 if feed_item.id.nil?
-        num_updated += 1 unless feed_item.id.nil?
-        feed_item.update(title: item.title)
+        FeedItem.create(guid: item.guid.to_s, title: item.title)
       end
     end
 
-    puts "Update feed items done: added #{num_added} and updated #{num_updated} feed items"
+    puts "Refresh done: loaded #{num_loaded} feed item(s)"
   end
-
-  desc 'Purge feed items from the database older than seven days'
-  task :purge_old => :environment do
-    puts 'Purge old feed items start'
-    # Purge items that haven't appeared in the source feed for at least seven
-    # days.  update_at will only be updated when an item is in the feed.
-    num_deleted = FeedItem.where('updated_at < ?', 7.days.ago).destroy_all.length
-    puts "Purge old feed items done: deleted #{num_deleted} feed item(s)"
-  end
-
-  desc 'Purge all feed items from the database'
-  task :purge_all => :environment do
-    puts 'Purge all feed items start'
-    num_deleted = FeedItem.destroy_all.length
-    puts "Purge all feed items done: deleted #{num_deleted} feed items(s)"
-  end
-
-  desc 'Add/update the latest feed items, purge old feed items'
-  task :refresh => [:update, :purge_old]
 
 end
