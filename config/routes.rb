@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
+
+  # Set http://site to be a shortcut for http://site/feed_items
+  root 'feed_items#index'
+
   resources :feed_items, only: [:index, :show]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
