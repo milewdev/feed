@@ -10,11 +10,7 @@ class RssLoader
       open(url) do |rss_io|
         rss_data = RSS::Parser.parse(rss_io)
         channel = create_channel(rss_data.channel)
-
-        rss_data.items.each do |rss_item|
-          create_item(channel, rss_item)
-        end
-
+        create_items(channel, rss_data.items)
       end
 
     end
@@ -34,6 +30,12 @@ class RssLoader
         language:         rss_channel.language,
         generator:        rss_channel.generator
       )
+    end
+
+    def create_items(channel, rss_items)
+      rss_items.each do |rss_item|
+        create_item(channel, rss_item)
+      end
     end
 
     def create_item(channel, rss_item)
