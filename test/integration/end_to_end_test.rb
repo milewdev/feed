@@ -36,53 +36,52 @@ class EndToEndTest < ActionDispatch::IntegrationTest
     end
   end
 
-  private
+end
 
-  #
-  # Test support functions and data.
-  #
-  def test_data_as_rss
-    <<-EOS
-      <rss
-        xmlns:content="http://purl.org/rss/1.0/modules/content/"
-        xmlns:wfw="http://wellformedweb.org/CommentAPI/"
-        xmlns:dc="http://purl.org/dc/elements/1.1/"
-        xmlns:atom="http://www.w3.org/2005/Atom"
-        xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-        xmlns:slash="http://purl.org/rss/1.0/modules/slash/" version="2.0">
 
-        <channel>
-          <title>title</title>
-          <link>link</link>
-          <description>description</description>
-          <lastBuildDate>Sat, 2 Feb 2014 12:34:56 +0000</lastBuildDate>
-          <language>language</language>
-          <generator>generator</generator>
+#
+# Test support functions and data.
+#
+def test_data_as_rss
+  <<-EOS
+    <rss
+      xmlns:content="http://purl.org/rss/1.0/modules/content/"
+      xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:atom="http://www.w3.org/2005/Atom"
+      xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+      xmlns:slash="http://purl.org/rss/1.0/modules/slash/" version="2.0">
 
-          <item>
-            <title>item_title</title>
-            <link>item_link</link>
-            <comments>item_comments</comments>
-            <pubDate>Sat, 3 Mar 2014 12:34:56 +0000</pubDate>
-            <guid isPermaLink="false">item_guid</guid>
-            <description>item_description</description>
-          </item>
+      <channel>
+        <title>title</title>
+        <link>link</link>
+        <description>description</description>
+        <lastBuildDate>Sat, 2 Feb 2014 12:34:56 +0000</lastBuildDate>
+        <language>language</language>
+        <generator>generator</generator>
 
-          <item>
-            <title>item_title_2</title>
-            <link>item_link_2</link>
-            <comments>item_comments_2</comments>
-            <pubDate>Sat, 3 Mar 2014 12:34:57 +0000</pubDate>
-            <guid isPermaLink="false">item_guid_2</guid>
-            <description>item_description_2</description>
-          </item>
-        </channel>
-      </rss>
-    EOS
-  end
+        <item>
+          <title>item_title</title>
+          <link>item_link</link>
+          <comments>item_comments</comments>
+          <pubDate>Sat, 3 Mar 2014 12:34:56 +0000</pubDate>
+          <guid isPermaLink="false">item_guid</guid>
+          <description>item_description</description>
+        </item>
 
-  def test_data
-    RSS::Parser.parse(test_data_as_rss)
-  end
+        <item>
+          <title>item_title_2</title>
+          <link>item_link_2</link>
+          <comments>item_comments_2</comments>
+          <pubDate>Sat, 3 Mar 2014 12:34:57 +0000</pubDate>
+          <guid isPermaLink="false">item_guid_2</guid>
+          <description>item_description_2</description>
+        </item>
+      </channel>
+    </rss>
+  EOS
+end
 
+def test_data
+  RSS::Parser.parse(test_data_as_rss)
 end
