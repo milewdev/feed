@@ -2,6 +2,7 @@ require 'rss'
 require 'open-uri'
 
 class RssLoader
+
     def load
       purge_existing_data()
       load_data_from_rss_feed()
@@ -14,6 +15,7 @@ class RssLoader
     end
 
     def load_data_from_rss_feed
+      # TODO: pass in as a parameter to RssLoader#load?
       url = 'http://www.macleans.ca/multimedia/feed/'
       open(url) do |rss_io|
         rss_data = RSS::Parser.parse(rss_io)
