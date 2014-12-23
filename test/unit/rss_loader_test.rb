@@ -25,11 +25,7 @@ describe 'RssLoader#load' do
   it 'loads all item fields for all items' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
-    loaded_item = Item.all.first
-    test_item = test_data.items.first
-    test_data.items.zip(Item.all).each do |expected, actual|
-      assert_item_equal(expected, actual)
-    end
+    assert_items_equal(test_data.items, Item.all)
   end
 end
 
@@ -88,6 +84,12 @@ def assert_channel_equal(channel_from_rss, channel_from_db)
   channel_from_rss.lastBuildDate.must_equal   channel_from_db.last_build_date
   channel_from_rss.language.must_equal        channel_from_db.language
   channel_from_rss.generator.must_equal       channel_from_db.generator
+end
+
+def assert_items_equal(items_from_rss, items_from_db)
+  items_from_rss.zip(items_from_db).each do |item_from_rss, item_from_db|
+    assert_item_equal(item_from_rss, item_from_db)
+  end
 end
 
 def assert_item_equal(item_from_rss, item_from_db)
