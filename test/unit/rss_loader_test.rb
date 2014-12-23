@@ -11,7 +11,8 @@ describe 'RssLoader#load' do
   it 'loads all channel fields' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
-    assert_channel_equal(test_data.channel, Channel.all.first)
+    channel_from_rss, channel_from_db = test_data.channel, Channel.all.first
+    assert_channel_equal(channel_from_rss, channel_from_db)
   end
 
   it 'deletes existing item records' do
@@ -25,7 +26,8 @@ describe 'RssLoader#load' do
   it 'loads all item fields for all items' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
-    assert_items_equal(test_data.items, Item.all)
+    items_from_rss, items_from_db = test_data.items, Item.all
+    assert_items_equal(items_from_rss, items_from_db)
   end
 end
 
