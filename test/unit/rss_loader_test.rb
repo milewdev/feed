@@ -19,6 +19,14 @@ describe 'RssLoader#load' do
     loaded_channel.language.must_equal        test_data.channel.language
     loaded_channel.generator.must_equal       test_data.channel.generator
   end
+
+  it 'deletes existing item records' do
+    existing_channel = Channel.create()
+    existing_item = existing_channel.items.create()
+    loader = create_loader_that_loads test_data_as_rss
+    loader.load
+    Item.exists?(existing_item.id).must_equal false
+  end
 end
 
 
