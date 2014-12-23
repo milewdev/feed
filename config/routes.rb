@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
 
-  # Set http://site to be a shortcut for http://site/feed_items
-  root 'v1/feed_items#index'
+  root 'v2/channels#index'
 
   namespace :v2 do
-    resources :channels, only: [:index, :show] 
+    resources :channels, only: [:index, :show]
   end
 
   namespace :v1 do
