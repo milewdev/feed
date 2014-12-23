@@ -4,7 +4,7 @@ class V2::ChannelsController < ApplicationController
   def index
     @channels = Channel.all
 
-    render json: @channels
+    render template: 'v2/channels/index.json.jbuilder'
   end
 
   # GET /v2/channels/1
@@ -12,6 +12,7 @@ class V2::ChannelsController < ApplicationController
   def show
     @channel = Channel.find(params[:id])
 
+    # TODO: use a template
     render json: @channel
   end
 end

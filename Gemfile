@@ -11,6 +11,9 @@ gem 'spring', group: :development
 
 gem 'sqlite3', group: :development
 
+# See https://github.com/rails/jbuilder
+gem 'jbuilder'
+
 # See http://gofreerange.com/mocha/docs/
 gem 'mocha', group: :development
 

@@ -47,3 +47,13 @@ minitest:
 
 minitest-spec-rails (using minitest spec with rails):
   https://github.com/metaskills/minitest-spec-rails
+
+
+To pass a seed value to minitest:
+
+    $ rake test TESTOPTS='--seed 26138'
+
+Likely you have an erratic test caused by interacting tests and so you will want
+to show the order of the tests:
+
+    $ rake test TESTOPTS='--seed 26138 -v'
