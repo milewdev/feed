@@ -12,14 +12,8 @@ class EndToEndTest < ActionDispatch::IntegrationTest
     channel_from_rss, channel_from_json = test_data.channel, json.first
     assert_channel_equal(channel_from_rss, channel_from_json)
 
-    test_data.channel.items.zip(json.first['items']).each do |expected, actual|
-      assert expected.title == actual['title']
-      assert expected.link == actual['link']
-      assert expected.comments == actual['comments']
-      assert expected.pubDate == actual['pubDate']
-      assert expected.guid.to_s == actual['guid']
-      assert expected.description == actual['description']
-    end
+    items_from_rss, items_from_json = test_data.channel.items, json.first['items']
+    assert_items_equal(items_from_rss, items_from_json)
   end
 
 
@@ -87,6 +81,18 @@ class EndToEndTest < ActionDispatch::IntegrationTest
 
     assert channel_from_json['language'] == channel_from_rss.language
     assert channel_from_json['generator'] == channel_from_rss.generator
+  end
+
+  def assert_items_equal(items_from_rss, items_from_json)
+    # TODO: need to sort lists before comparing
+    items_from_rss.zip(items_from_json).each do |expected, actual|
+      assert expected.title == actual['title']
+      assert expected.link == actual['link']
+      assert expected.comments == actual['comments']
+      assert expected.pubDate == actual['pubDate']
+      assert expected.guid.to_s == actual['guid']
+      assert expected.description == actual['description']
+    end
   end
 
 end
