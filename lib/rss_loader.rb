@@ -11,8 +11,8 @@ class RssLoader
         rss_data = RSS::Parser.parse(rss_io)
         channel = create_channel(rss_data)
 
-        rss_data.items.each do |item|
-          create_item(channel, item)
+        rss_data.items.each do |rss_item|
+          create_item(channel, rss_item)
         end
 
       end
