@@ -4,7 +4,7 @@ one:
   title: MyString
   link: MyString
   description: MyString
-  lastBuildDate: 2014-12-22 12:06:09
+  last_build_date: 2014-12-22 12:06:09
   language: MyString
   generator: MyString
 
@@ -12,6 +12,6 @@ two:
   title: MyString
   link: MyString
   description: MyString
-  lastBuildDate: 2014-12-22 12:06:09
+  last_build_date: 2014-12-22 12:06:09
   language: MyString
   generator: MyString

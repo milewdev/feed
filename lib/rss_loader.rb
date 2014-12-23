@@ -13,7 +13,7 @@ class RssLoader
         title: rss_data.channel.title,
         link: rss_data.channel.link,
         description: rss_data.channel.description,
-        lastBuildDate: rss_data.channel.lastBuildDate,
+        last_build_date: rss_data.channel.lastBuildDate,
         language: rss_data.channel.language,
         generator: rss_data.channel.generator
       )

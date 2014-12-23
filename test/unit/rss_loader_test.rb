@@ -12,12 +12,12 @@ describe 'RssLoader#load' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
     loaded_channel = Channel.all.first
-    loaded_channel.title.must_equal         test_data.channel.title
-    loaded_channel.link.must_equal          test_data.channel.link
-    loaded_channel.description.must_equal   test_data.channel.description
-    loaded_channel.lastBuildDate.must_equal test_data.channel.lastBuildDate
-    loaded_channel.language.must_equal      test_data.channel.language
-    loaded_channel.generator.must_equal     test_data.channel.generator
+    loaded_channel.title.must_equal           test_data.channel.title
+    loaded_channel.link.must_equal            test_data.channel.link
+    loaded_channel.description.must_equal     test_data.channel.description
+    loaded_channel.last_build_date.must_equal test_data.channel.lastBuildDate
+    loaded_channel.language.must_equal        test_data.channel.language
+    loaded_channel.generator.must_equal       test_data.channel.generator
   end
 end
 
