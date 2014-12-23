@@ -13,6 +13,7 @@ class EndToEndTest < ActionDispatch::IntegrationTest
     actual = json.first
     # TODO: put expected on the left (or the right?  how is the error reported?)
     # TODO: use an assertion that reports the two differing values
+    assert_match %r{/v[0-9]+/channels/[0-9]+\.json}, actual['href']
     assert actual['title'] == expected.title
     assert actual['link'] == expected.link
     assert actual['description'] == expected.description

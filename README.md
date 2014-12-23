@@ -41,6 +41,9 @@ or [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
 
 ###Release Notes
 
+####v2.0.1
+- Add href to channel JSON data; this provides the direct url of the channel.
+
 ####v2.0.0
 - URL is /v2/channels
 - Change root shortcut / from /v1/feed_items#index to /v2/channels#index
