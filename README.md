@@ -33,13 +33,9 @@ $
 - The application was created using [rails-api](https://github.com/rails-api/rails-api)
 and therefore serves json responses.
 
-- The only custom code is a feed:refresh Rake task in lib/tasks/schedule.rake.  The
-amount of code is so small that it is all inline within the Rake task itself.  It can
-be refactored out if it grows in size.
-
-- The feed:refresh Rake task should be run say once every hour using something
-like [cron](http://en.wikipedia.org/wiki/Cron) or [Heroku
-Scheduler](https://devcenter.heroku.com/articles/scheduler).
+- The feed:refresh (v1) and rss_loader:load (v2) Rake tasks should be run say
+once every hour using something like [cron](http://en.wikipedia.org/wiki/Cron)
+or [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
 
 
 
