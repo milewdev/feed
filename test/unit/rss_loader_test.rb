@@ -29,17 +29,19 @@ describe 'RssLoader#load' do
     Item.exists?(existing_item.id).must_equal false
   end
 
-  it 'loads all item fields' do
+  it 'loads all item fields for all items' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
     loaded_item = Item.all.first
     test_item = test_data.items.first
-    loaded_item.title.must_equal        test_item.title
-    loaded_item.link.must_equal         test_item.link
-    loaded_item.comments.must_equal     test_item.comments
-    loaded_item.pub_date.must_equal     test_item.pubDate
-    loaded_item.guid.must_equal         test_item.guid.to_s
-    loaded_item.description.must_equal  test_item.description
+    test_data.items.zip(Item.all).each do |expected, actual|
+      expected.title.must_equal        actual.title
+      expected.link.must_equal         actual.link
+      expected.comments.must_equal     actual.comments
+      expected.pubDate.must_equal      actual.pub_date
+      expected.guid.to_s.must_equal    actual.guid
+      expected.description.must_equal  actual.description
+    end
   end
 end
 
@@ -75,7 +77,16 @@ def test_data_as_rss
           <guid isPermaLink="false">item_guid</guid>
           <description>item_description</description>
         </item>
-      </channel>
+
+        <item>
+          <title>item_title_2</title>
+          <link>item_link_2</link>
+          <comments>item_comments_2</comments>
+          <pubDate>Sat, 3 Mar 2014 12:34:57 +0000</pubDate>
+          <guid isPermaLink="false">item_guid_2</guid>
+          <description>item_description_2</description>
+        </item>
+        </channel>
     </rss>
   EOS
 end
