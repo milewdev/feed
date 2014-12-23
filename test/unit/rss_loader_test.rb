@@ -86,10 +86,18 @@ def assert_channel_equal(channel_from_rss, channel_from_db)
   channel_from_rss.generator.must_equal       channel_from_db.generator
 end
 
+# Note that we sort the items so that we compare item 1 from RSS
+# with item 1 from the db, etc.
 def assert_items_equal(items_from_rss, items_from_db)
-  items_from_rss.zip(items_from_db).each do |item_from_rss, item_from_db|
+  sorted_from_rss = sort_items(items_from_rss)
+  sorted_from_db = sort_items(items_from_db)
+  sorted_from_rss.zip(sorted_from_db).each do |item_from_rss, item_from_db|
     assert_item_equal(item_from_rss, item_from_db)
   end
+end
+
+def sort_items(items)
+  items.sort { |a, b| a.title <=> b.title }
 end
 
 def assert_item_equal(item_from_rss, item_from_db)
