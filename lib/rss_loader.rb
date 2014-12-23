@@ -9,7 +9,7 @@ class RssLoader
       url = 'http://www.macleans.ca/multimedia/feed/'
       open(url) do |rss_io|
         rss_data = RSS::Parser.parse(rss_io)
-        channel = create_channel(rss_data)
+        channel = create_channel(rss_data.channel)
 
         rss_data.items.each do |rss_item|
           create_item(channel, rss_item)
@@ -25,14 +25,14 @@ class RssLoader
       Channel.destroy_all
     end
 
-    def create_channel(rss_data)
+    def create_channel(rss_channel)
       Channel.create(
-        title:            rss_data.channel.title,
-        link:             rss_data.channel.link,
-        description:      rss_data.channel.description,
-        last_build_date:  rss_data.channel.lastBuildDate,
-        language:         rss_data.channel.language,
-        generator:        rss_data.channel.generator
+        title:            rss_channel.title,
+        link:             rss_channel.link,
+        description:      rss_channel.description,
+        last_build_date:  rss_channel.lastBuildDate,
+        language:         rss_channel.language,
+        generator:        rss_channel.generator
       )
     end
 
