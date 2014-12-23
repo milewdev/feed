@@ -2,11 +2,16 @@ require 'test_helper'
 
 class EndToEndTest < ActionDispatch::IntegrationTest
 
-  # TODO: refactor
   test 'feeder caches an RSS feed and provides a JSON refeed' do
+
+    # arrange
     loader = create_loader_that_loads test_data_as_rss
+
+    # act
     loader.load
     get '/v2/channels'
+
+    # assert
     json = JSON.parse(response.body)
 
     channel_from_rss, channel_from_json = test_data.channel, json.first
@@ -14,6 +19,7 @@ class EndToEndTest < ActionDispatch::IntegrationTest
 
     items_from_rss, items_from_json = test_data.channel.items, json.first['items']
     assert_items_equal(items_from_rss, items_from_json)
+
   end
 
 
@@ -85,14 +91,18 @@ class EndToEndTest < ActionDispatch::IntegrationTest
 
   def assert_items_equal(items_from_rss, items_from_json)
     # TODO: need to sort lists before comparing
-    items_from_rss.zip(items_from_json).each do |expected, actual|
-      assert expected.title == actual['title']
-      assert expected.link == actual['link']
-      assert expected.comments == actual['comments']
-      assert expected.pubDate == actual['pubDate']
-      assert expected.guid.to_s == actual['guid']
-      assert expected.description == actual['description']
+    items_from_rss.zip(items_from_json).each do |item_from_rss, item_from_json|
+      assert_item_equal(item_from_rss, item_from_json)
     end
+  end
+
+  def assert_item_equal(item_from_rss, item_from_json)
+    assert item_from_rss.title == item_from_json['title']
+    assert item_from_rss.link == item_from_json['link']
+    assert item_from_rss.comments == item_from_json['comments']
+    assert item_from_rss.pubDate == item_from_json['pubDate']
+    assert item_from_rss.guid.to_s == item_from_json['guid']
+    assert item_from_rss.description == item_from_json['description']
   end
 
 end
