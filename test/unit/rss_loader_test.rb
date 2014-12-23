@@ -34,6 +34,7 @@ end
 
 #
 # Test support functions and data.
+# TODO: move inside outer describe block so that they are not globally visible.
 #
 def test_data_as_rss
   <<-EOS
