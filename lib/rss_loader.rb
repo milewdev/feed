@@ -12,14 +12,7 @@ class RssLoader
         channel = create_channel(rss_data)
 
         rss_data.items.each do |item|
-          channel.items.create(
-            title:          item.title,
-            link:           item.link,
-            comments:       item.comments,
-            pub_date:       item.pubDate,
-            guid:           item.guid.to_s,
-            description:    item.description
-          )
+          create_item(channel, item)
         end
 
       end
@@ -40,6 +33,17 @@ class RssLoader
         last_build_date:  rss_data.channel.lastBuildDate,
         language:         rss_data.channel.language,
         generator:        rss_data.channel.generator
+      )
+    end
+
+    def create_item(channel, rss_item)
+      channel.items.create(
+        title:            rss_item.title,
+        link:             rss_item.link,
+        comments:         rss_item.comments,
+        pub_date:         rss_item.pubDate,
+        guid:             rss_item.guid.to_s,
+        description:      rss_item.description
       )
     end
 
