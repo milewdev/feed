@@ -13,6 +13,7 @@ describe 'RssLoader#load' do
     loader.load
     expected = test_data.channel
     actual = Channel.all.first
+    # TODO: extract helper equals method?
     expected.title.must_equal           actual.title
     expected.link.must_equal            actual.link
     expected.description.must_equal     actual.description
@@ -35,6 +36,7 @@ describe 'RssLoader#load' do
     loaded_item = Item.all.first
     test_item = test_data.items.first
     test_data.items.zip(Item.all).each do |expected, actual|
+      # TODO: extract helper equals method?
       expected.title.must_equal        actual.title
       expected.link.must_equal         actual.link
       expected.comments.must_equal     actual.comments
@@ -86,7 +88,7 @@ def test_data_as_rss
           <guid isPermaLink="false">item_guid_2</guid>
           <description>item_description_2</description>
         </item>
-        </channel>
+      </channel>
     </rss>
   EOS
 end
