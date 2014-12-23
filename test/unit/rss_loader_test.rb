@@ -28,13 +28,7 @@ describe 'RssLoader#load' do
     loaded_item = Item.all.first
     test_item = test_data.items.first
     test_data.items.zip(Item.all).each do |expected, actual|
-      # TODO: extract helper equals method?
-      expected.title.must_equal        actual.title
-      expected.link.must_equal         actual.link
-      expected.comments.must_equal     actual.comments
-      expected.pubDate.must_equal      actual.pub_date
-      expected.guid.to_s.must_equal    actual.guid
-      expected.description.must_equal  actual.description
+      assert_item_equal(expected, actual)
     end
   end
 end
@@ -94,4 +88,13 @@ def assert_channel_equal(channel_from_rss, channel_from_db)
   channel_from_rss.lastBuildDate.must_equal   channel_from_db.last_build_date
   channel_from_rss.language.must_equal        channel_from_db.language
   channel_from_rss.generator.must_equal       channel_from_db.generator
+end
+
+def assert_item_equal(item_from_rss, item_from_db)
+  item_from_rss.title.must_equal        item_from_db.title
+  item_from_rss.link.must_equal         item_from_db.link
+  item_from_rss.comments.must_equal     item_from_db.comments
+  item_from_rss.pubDate.must_equal      item_from_db.pub_date
+  item_from_rss.guid.to_s.must_equal    item_from_db.guid
+  item_from_rss.description.must_equal  item_from_db.description
 end
