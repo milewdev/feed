@@ -26,3 +26,12 @@ namespace :feed do
   end
 
 end
+
+namespace :rss_loader do
+  desc 'rss_loader'
+  task :load => :environment do
+    puts '----- rss_loader start -----'
+    RssLoader.new.load
+    puts '----- rss_loader done -----'
+  end
+end
