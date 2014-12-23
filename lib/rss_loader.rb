@@ -3,22 +3,23 @@ require 'open-uri'
 
 class RssLoader
     def load
-
       purge_existing_data()
-
-      url = 'http://www.macleans.ca/multimedia/feed/'
-      open(url) do |rss_io|
-        rss_data = RSS::Parser.parse(rss_io)
-        channel = create_channel(rss_data.channel)
-        create_items(channel, rss_data.items)
-      end
-
+      load_data_from_rss_feed()
     end
 
   private
 
     def purge_existing_data
       Channel.destroy_all
+    end
+
+    def load_data_from_rss_feed
+      url = 'http://www.macleans.ca/multimedia/feed/'
+      open(url) do |rss_io|
+        rss_data = RSS::Parser.parse(rss_io)
+        channel = create_channel(rss_data.channel)
+        create_items(channel, rss_data.items)
+      end
     end
 
     def create_channel(rss_channel)
