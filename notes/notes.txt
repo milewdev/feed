@@ -51,9 +51,13 @@ minitest-spec-rails (using minitest spec with rails):
 
 To pass a seed value to minitest:
 
-    $ rake test TESTOPTS='--seed 26138'
+  $ rake test TESTOPTS='--seed 26138'
 
 Likely you have an erratic test caused by interacting tests and so you will want
 to show the order of the tests:
 
-    $ rake test TESTOPTS='--seed 26138 -v'
+  $ rake test TESTOPTS='--seed 26138 -v'
+
+
+Addon to view JSON in chrome browser:
+  https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc?hl=en
