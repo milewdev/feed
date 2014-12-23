@@ -11,6 +11,9 @@ require 'mocha/mini_test'
 # See http://pryrepl.org/
 require 'pry'
 
+# Other test helpers.
+require_relative 'rss_loader_helper'
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all

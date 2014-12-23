@@ -41,8 +41,6 @@ class EndToEndTest < ActionDispatch::IntegrationTest
   #
   # Test support functions and data.
   #
-  require 'rss'
-
   def test_data_as_rss
     <<-EOS
       <rss
@@ -85,16 +83,6 @@ class EndToEndTest < ActionDispatch::IntegrationTest
 
   def test_data
     RSS::Parser.parse(test_data_as_rss)
-  end
-
-  # TODO: extract to helper
-  # TODO: duplicated in rss_loader_test.rb
-  def create_loader_that_loads(data_as_rss)
-    rss_io = mock()
-    rss_io.expects(:read).returns(data_as_rss)
-    loader = RssLoader.new
-    loader.expects(:open).yields(rss_io)
-    loader
   end
 
 end
