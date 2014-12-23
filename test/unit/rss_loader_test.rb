@@ -11,14 +11,14 @@ describe 'RssLoader#load' do
   it 'loads all channel fields' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
-    loaded_channel = Channel.all.first
-    test_channel = test_data.channel
-    loaded_channel.title.must_equal           test_channel.title
-    loaded_channel.link.must_equal            test_channel.link
-    loaded_channel.description.must_equal     test_channel.description
-    loaded_channel.last_build_date.must_equal test_channel.lastBuildDate
-    loaded_channel.language.must_equal        test_channel.language
-    loaded_channel.generator.must_equal       test_channel.generator
+    expected = test_data.channel
+    actual = Channel.all.first
+    expected.title.must_equal           actual.title
+    expected.link.must_equal            actual.link
+    expected.description.must_equal     actual.description
+    expected.lastBuildDate.must_equal   actual.last_build_date
+    expected.language.must_equal        actual.language
+    expected.generator.must_equal       actual.generator
   end
 
   it 'deletes existing item records' do
