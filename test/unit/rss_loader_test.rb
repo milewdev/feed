@@ -11,15 +11,7 @@ describe 'RssLoader#load' do
   it 'loads all channel fields' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
-    expected = test_data.channel
-    actual = Channel.all.first
-    # TODO: extract helper equals method?
-    expected.title.must_equal           actual.title
-    expected.link.must_equal            actual.link
-    expected.description.must_equal     actual.description
-    expected.lastBuildDate.must_equal   actual.last_build_date
-    expected.language.must_equal        actual.language
-    expected.generator.must_equal       actual.generator
+    assert_channel_equal(test_data.channel, Channel.all.first)
   end
 
   it 'deletes existing item records' do
@@ -93,4 +85,13 @@ end
 
 def test_data
   RSS::Parser.parse(test_data_as_rss)
+end
+
+def assert_channel_equal(channel_from_rss, channel_from_db)
+  channel_from_rss.title.must_equal           channel_from_db.title
+  channel_from_rss.link.must_equal            channel_from_db.link
+  channel_from_rss.description.must_equal     channel_from_db.description
+  channel_from_rss.lastBuildDate.must_equal   channel_from_db.last_build_date
+  channel_from_rss.language.must_equal        channel_from_db.language
+  channel_from_rss.generator.must_equal       channel_from_db.generator
 end
