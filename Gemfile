@@ -11,6 +11,12 @@ gem 'spring', group: :development
 
 gem 'sqlite3', group: :development
 
+# See http://gofreerange.com/mocha/docs/
+gem 'mocha', group: :development
+
+# See http://pryrepl.org/
+gem 'pry', group: :development
+
 # Heroku does not support sqlite; see https://devcenter.heroku.com/articles/sqlite3
 gem 'pg', group: :production
 

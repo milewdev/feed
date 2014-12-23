@@ -30,5 +30,8 @@ module Feed
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # See http://stackoverflow.com/questions/19098663/auto-loading-lib-files-in-rails-4/19650564#19650564
+    config.autoload_paths << Rails.root.join('lib')
   end
 end
