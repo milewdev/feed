@@ -90,10 +90,19 @@ class EndToEndTest < ActionDispatch::IntegrationTest
   end
 
   def assert_items_equal(items_from_rss, items_from_json)
-    # TODO: need to sort lists before comparing
+    sorted_from_rss = sort_items_from_rss(items_from_rss)
+    sorted_from_json = sort_items_from_json(items_from_json)
     items_from_rss.zip(items_from_json).each do |item_from_rss, item_from_json|
       assert_item_equal(item_from_rss, item_from_json)
     end
+  end
+
+  def sort_items_from_rss(items)
+    items.sort { |a, b| a.title <=> b.title }
+  end
+
+  def sort_items_from_json(items)
+    items.sort { |a, b| a['title'] <=> b['title'] }
   end
 
   def assert_item_equal(item_from_rss, item_from_json)
