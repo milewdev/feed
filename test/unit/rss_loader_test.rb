@@ -12,12 +12,13 @@ describe 'RssLoader#load' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
     loaded_channel = Channel.all.first
-    loaded_channel.title.must_equal           test_data.channel.title
-    loaded_channel.link.must_equal            test_data.channel.link
-    loaded_channel.description.must_equal     test_data.channel.description
-    loaded_channel.last_build_date.must_equal test_data.channel.lastBuildDate
-    loaded_channel.language.must_equal        test_data.channel.language
-    loaded_channel.generator.must_equal       test_data.channel.generator
+    test_channel = test_data.channel
+    loaded_channel.title.must_equal           test_channel.title
+    loaded_channel.link.must_equal            test_channel.link
+    loaded_channel.description.must_equal     test_channel.description
+    loaded_channel.last_build_date.must_equal test_channel.lastBuildDate
+    loaded_channel.language.must_equal        test_channel.language
+    loaded_channel.generator.must_equal       test_channel.generator
   end
 
   it 'deletes existing item records' do
@@ -26,6 +27,19 @@ describe 'RssLoader#load' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
     Item.exists?(existing_item.id).must_equal false
+  end
+
+  it 'loads all item fields' do
+    loader = create_loader_that_loads test_data_as_rss
+    loader.load
+    loaded_item = Item.all.first
+    test_item = test_data.items.first
+    loaded_item.title.must_equal        test_item.title
+    loaded_item.link.must_equal         test_item.link
+    loaded_item.comments.must_equal     test_item.comments
+    loaded_item.pub_date.must_equal     test_item.pubDate
+    loaded_item.guid.must_equal         test_item.guid.to_s
+    loaded_item.description.must_equal  test_item.description
   end
 end
 
@@ -52,6 +66,15 @@ def test_data_as_rss
         <lastBuildDate>Sat, 2 Feb 2014 12:34:56 +0000</lastBuildDate>
         <language>language</language>
         <generator>generator</generator>
+
+        <item>
+          <title>item_title</title>
+          <link>item_link</link>
+          <comments>item_comments</comments>
+          <pubDate>Sat, 3 Mar 2014 12:34:56 +0000</pubDate>
+          <guid isPermaLink="false">item_guid</guid>
+          <description>item_description</description>
+        </item>
       </channel>
     </rss>
   EOS

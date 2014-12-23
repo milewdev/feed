@@ -7,7 +7,7 @@ one:
   pub_date: 2014-12-22 22:54:55
   guid: MyString
   description: MyString
-  channel_id: 
+  channel: one
 
 two:
   title: MyString
@@ -16,4 +16,4 @@ two:
   pub_date: 2014-12-22 22:54:55
   guid: MyString
   description: MyString
-  channel_id: 
+  channel: two
