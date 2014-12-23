@@ -51,8 +51,6 @@ end
 #
 # Test support functions and data.
 #
-require 'rss'
-
 def test_data_as_rss
   <<-EOS
     <rss

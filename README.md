@@ -43,6 +43,7 @@ or [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
 
 ####v2.0.1
 - Add href to channel JSON data; this provides the direct url of the channel.
+- DRY up and refactor test code.
 
 ####v2.0.0
 - URL is /v2/channels
