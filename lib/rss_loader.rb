@@ -33,9 +33,7 @@ class RssLoader
     end
 
     def create_items(channel, rss_items)
-      rss_items.each do |rss_item|
-        create_item(channel, rss_item)
-      end
+      rss_items.each { |rss_item| create_item(channel, rss_item) }
     end
 
     def create_item(channel, rss_item)
