@@ -80,13 +80,13 @@ class EndToEndTest
   end
 
   def assert_channel_equal(rss_channel, json_channel)
-    assert_match %r{/v[0-9]+/channels/[0-9]+\.json}, json_channel['href']
-    assert_equal rss_channel.title, json_channel['title']
-    assert_equal rss_channel.link, json_channel['link']
-    assert_equal rss_channel.description, json_channel['description']
+    assert_match %r{/v[0-9]+/channels/[0-9]+\.json},      json_channel['href']
+    assert_equal rss_channel.title,                       json_channel['title']
+    assert_equal rss_channel.link,                        json_channel['link']
+    assert_equal rss_channel.description,                 json_channel['description']
     assert_equal to_json_date(rss_channel.lastBuildDate), json_channel['lastBuildDate']
-    assert_equal rss_channel.language, json_channel['language']
-    assert_equal rss_channel.generator, json_channel['generator']
+    assert_equal rss_channel.language,                    json_channel['language']
+    assert_equal rss_channel.generator,                   json_channel['generator']
   end
 
   def assert_items_equal(items_from_rss, items_from_json)
