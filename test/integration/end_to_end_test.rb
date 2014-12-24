@@ -4,9 +4,9 @@ require 'test_helper'
 class EndToEndTest < ActionDispatch::IntegrationTest
 
   def test_that_feeder_caches_an_RSS_feed_and_provides_a_JSON_refeed
-    run_rss_loader_with(rss_data)
+    run_rss_loader_with(rss)
     json = get_json_from('/v2/channels')
-    assert_data_equal(rss_data, json)
+    assert_data_equal(rss, json)
   end
 
 end
@@ -19,7 +19,7 @@ class EndToEndTest
 
   private
 
-  def rss_data
+  def rss
     <<-EOS
       <rss
         xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -59,12 +59,12 @@ class EndToEndTest
     EOS
   end
 
-  def parse(rss_data)
-    RSS::Parser.parse(rss_data)
+  def parse(rss)
+    RSS::Parser.parse(rss)
   end
 
-  def run_rss_loader_with(rss_data)
-    loader = create_loader_that_loads(rss_data)
+  def run_rss_loader_with(rss)
+    loader = create_loader_that_loads(rss)
     loader.load
   end
 
@@ -73,11 +73,11 @@ class EndToEndTest
     JSON.parse(response.body)
   end
 
-  def assert_data_equal(rss_data, json_data)
-    channel_from_rss, channel_from_json = parse(rss_data).channel, json_data.first
+  def assert_data_equal(rss, json_data)
+    channel_from_rss, channel_from_json = parse(rss).channel, json_data.first
     assert_channel_equal(channel_from_rss, channel_from_json)
 
-    items_from_rss, items_from_json = parse(rss_data).channel.items, json_data.first['items']
+    items_from_rss, items_from_json = parse(rss).channel.items, json_data.first['items']
     assert_items_equal(items_from_rss, items_from_json)
   end
 
