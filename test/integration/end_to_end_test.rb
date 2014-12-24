@@ -4,7 +4,7 @@ require 'test_helper'
 class EndToEndTest < ActionDispatch::IntegrationTest
 
   def test_that_feeder_caches_an_RSS_feed_and_provides_a_JSON_refeed
-    run_rss_loader_with(test_data_as_rss)
+    run_rss_loader_with(rss_data)
     json = get_json_from('/v2/channels')
     assert_data_equal(test_data, json)
   end
@@ -19,7 +19,7 @@ class EndToEndTest
 
   private
 
-  def test_data_as_rss
+  def rss_data
     <<-EOS
       <rss
         xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -60,7 +60,7 @@ class EndToEndTest
   end
 
   def test_data
-    RSS::Parser.parse(test_data_as_rss)
+    RSS::Parser.parse(rss_data)
   end
 
   def run_rss_loader_with(rss_data)
