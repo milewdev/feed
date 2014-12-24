@@ -3,13 +3,13 @@ require 'test_helper'
 class RssLoaderTest < Minitest::Test
   def test_that_existing_channel_records_are_deleted
     existing_channel = Channel.create()
-    loader = create_loader_that_loads test_data_as_rss
+    loader = create_loader_that_loads rss_data
     loader.load
     refute Channel.exists?(existing_channel.id)
   end
 
   def test_that_all_channel_fields_are_loaded
-    loader = create_loader_that_loads test_data_as_rss
+    loader = create_loader_that_loads rss_data
     loader.load
     rss_channel, db_channel = test_data.channel, Channel.all.first
     assert_channel_equal rss_channel, db_channel
@@ -18,13 +18,13 @@ class RssLoaderTest < Minitest::Test
   def test_that_all_existing_item_records_are_deleted
     existing_channel = Channel.create()
     existing_item = existing_channel.items.create()
-    loader = create_loader_that_loads test_data_as_rss
+    loader = create_loader_that_loads rss_data
     loader.load
     refute Item.exists?(existing_item.id)
   end
 
   def test_that_all_item_fields_are_loaded
-    loader = create_loader_that_loads test_data_as_rss
+    loader = create_loader_that_loads rss_data
     loader.load
     rss_items, db_items = test_data.items, Item.all
     assert_items_equal rss_items, db_items
@@ -37,7 +37,7 @@ end
 class RssLoaderTest
   private
 
-  def test_data_as_rss
+  def rss_data
     <<-EOS
       <rss
         xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -78,7 +78,7 @@ class RssLoaderTest
   end
 
   def test_data
-    RSS::Parser.parse(test_data_as_rss)
+    RSS::Parser.parse(rss_data)
   end
 
   def assert_channel_equal(rss_channel, db_channel)
