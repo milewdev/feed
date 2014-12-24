@@ -92,8 +92,8 @@ class EndToEndTest
   def assert_items_equal(rss_items, json_items)
     sorted_from_rss = sort_rss_items(rss_items)
     sorted_from_json = sort_json_items(json_items)
-    rss_items.zip(json_items).each do |item_from_rss, item_from_json|
-      assert_item_equal(item_from_rss, item_from_json)
+    rss_items.zip(json_items).each do |rss_item, item_from_json|
+      assert_item_equal(rss_item, item_from_json)
     end
   end
 
@@ -105,13 +105,13 @@ class EndToEndTest
     items.sort { |a, b| a['title'] <=> b['title'] }
   end
 
-  def assert_item_equal(item_from_rss, item_from_json)
-    assert_equal item_from_rss.title,       item_from_json['title']
-    assert_equal item_from_rss.link,        item_from_json['link']
-    assert_equal item_from_rss.comments,    item_from_json['comments']
-    assert_equal item_from_rss.pubDate,     item_from_json['pubDate']
-    assert_equal item_from_rss.guid.to_s,   item_from_json['guid']
-    assert_equal item_from_rss.description, item_from_json['description']
+  def assert_item_equal(rss_item, item_from_json)
+    assert_equal rss_item.title,       item_from_json['title']
+    assert_equal rss_item.link,        item_from_json['link']
+    assert_equal rss_item.comments,    item_from_json['comments']
+    assert_equal rss_item.pubDate,     item_from_json['pubDate']
+    assert_equal rss_item.guid.to_s,   item_from_json['guid']
+    assert_equal rss_item.description, item_from_json['description']
   end
 
   # 2012-04-23T18:25:43.511Z
