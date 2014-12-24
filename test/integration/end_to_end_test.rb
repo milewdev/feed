@@ -75,10 +75,8 @@ class EndToEndTest
 
   def assert_data_equal(rss, json)
     rss_channel, json_channel = parse(rss).channel, json.first
-    assert_channel_equal(rss_channel, json_channel)
-
-    items_from_rss, items_from_json = parse(rss).channel.items, json.first['items']
-    assert_items_equal(items_from_rss, items_from_json)
+    assert_channel_equal rss_channel, json_channel
+    assert_items_equal rss_channel.items, json_channel['items']
   end
 
   def assert_channel_equal(rss_channel, json_channel)
