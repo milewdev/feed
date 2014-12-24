@@ -4,7 +4,7 @@ require 'test_helper'
 class EndToEndTest < ActionDispatch::IntegrationTest
 
   def test_that_feeder_caches_an_RSS_feed_and_provides_a_JSON_refeed
-    run_rss_loader(test_data_as_rss)
+    run_rss_loader_with(test_data_as_rss)
     json = get_json_from('/v2/channels')
     # assert_data_equal test_data, json)
 
@@ -71,8 +71,8 @@ class EndToEndTest
     RSS::Parser.parse(test_data_as_rss)
   end
 
-  def run_rss_loader(rss_data_to_load)
-    loader = create_loader_that_loads(rss_data_to_load)
+  def run_rss_loader_with(rss_data)
+    loader = create_loader_that_loads(rss_data)
     loader.load
   end
 
