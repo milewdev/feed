@@ -12,7 +12,7 @@ describe 'RssLoader#load' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
     rss_channel, db_channel = test_data.channel, Channel.all.first
-    assert_channel_equal(rss_channel, db_channel)
+    assert_channel_equal rss_channel, db_channel
   end
 
   it 'deletes existing item records' do
@@ -27,7 +27,7 @@ describe 'RssLoader#load' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
     rss_items, db_items = test_data.items, Item.all
-    assert_items_equal(rss_items, db_items)
+    assert_items_equal rss_items, db_items
   end
 end
 
@@ -81,12 +81,12 @@ def test_data
 end
 
 def assert_channel_equal(rss_channel, db_channel)
-  rss_channel.title.must_equal           db_channel.title
-  rss_channel.link.must_equal            db_channel.link
-  rss_channel.description.must_equal     db_channel.description
-  rss_channel.lastBuildDate.must_equal   db_channel.last_build_date
-  rss_channel.language.must_equal        db_channel.language
-  rss_channel.generator.must_equal       db_channel.generator
+  assert_equal rss_channel.title,           db_channel.title
+  assert_equal rss_channel.link,            db_channel.link
+  assert_equal rss_channel.description,     db_channel.description
+  assert_equal rss_channel.lastBuildDate,   db_channel.last_build_date
+  assert_equal rss_channel.language,        db_channel.language
+  assert_equal rss_channel.generator,       db_channel.generator
 end
 
 # Note that we sort the items so that we compare item 1 from RSS
@@ -95,7 +95,7 @@ def assert_items_equal(rss_items, db_items)
   rss_sorted = sort_items(rss_items)
   db_sorted = sort_items(db_items)
   rss_sorted.zip(db_sorted).each do |rss_item, db_item|
-    assert_item_equal(rss_item, db_item)
+    assert_item_equal rss_item, db_item
   end
 end
 
@@ -104,10 +104,10 @@ def sort_items(items)
 end
 
 def assert_item_equal(rss_item, db_item)
-  rss_item.title.must_equal        db_item.title
-  rss_item.link.must_equal         db_item.link
-  rss_item.comments.must_equal     db_item.comments
-  rss_item.pubDate.must_equal      db_item.pub_date
-  rss_item.guid.to_s.must_equal    db_item.guid
-  rss_item.description.must_equal  db_item.description
+  assert_equal rss_item.title,        db_item.title
+  assert_equal rss_item.link,         db_item.link
+  assert_equal rss_item.comments,     db_item.comments
+  assert_equal rss_item.pubDate,      db_item.pub_date
+  assert_equal rss_item.guid.to_s,    db_item.guid
+  assert_equal rss_item.description,  db_item.description
 end

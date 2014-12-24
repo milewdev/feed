@@ -42,7 +42,7 @@ or [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
 ###Release Notes
 
 ####v2.0.2
-- Refactoring.
+- Refactor test code.
 
 ####v2.0.1
 - Add href to channel JSON data; this provides the direct url of the channel.
