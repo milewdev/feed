@@ -6,7 +6,7 @@ class EndToEndTest < ActionDispatch::IntegrationTest
   def test_that_feeder_caches_an_RSS_feed_and_provides_a_JSON_refeed
     run_rss_loader_with(rss_data)
     json = get_json_from('/v2/channels')
-    assert_data_equal(test_data, json)
+    assert_data_equal(rss_data, json)
   end
 
 end
@@ -59,7 +59,7 @@ class EndToEndTest
     EOS
   end
 
-  def test_data
+  def parse(rss_data)
     RSS::Parser.parse(rss_data)
   end
 
@@ -73,11 +73,11 @@ class EndToEndTest
     JSON.parse(response.body)
   end
 
-  def assert_data_equal(test_data, json_data)
-    channel_from_rss, channel_from_json = test_data.channel, json_data.first
+  def assert_data_equal(rss_data, json_data)
+    channel_from_rss, channel_from_json = parse(rss_data).channel, json_data.first
     assert_channel_equal(channel_from_rss, channel_from_json)
 
-    items_from_rss, items_from_json = test_data.channel.items, json_data.first['items']
+    items_from_rss, items_from_json = parse(rss_data).channel.items, json_data.first['items']
     assert_items_equal(items_from_rss, items_from_json)
   end
 
