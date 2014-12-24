@@ -1,22 +1,17 @@
 require 'test_helper'
 
-
 class EndToEndTest < ActionDispatch::IntegrationTest
-
   def test_that_feeder_caches_an_RSS_feed_and_provides_a_JSON_refeed
     run_rss_loader_with(rss)
     json = get_json_from('/v2/channels')
     assert_data_equal(rss, json)
   end
-
 end
-
 
 #
 # Test support functions and data.
 #
 class EndToEndTest
-
   private
 
   def rss
@@ -119,5 +114,4 @@ class EndToEndTest
   def to_json_date(date)
     date.utc.strftime('%FT%T.%LZ')
   end
-
 end

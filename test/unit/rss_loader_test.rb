@@ -1,8 +1,6 @@
 require 'test_helper'
 
-
 class RssLoaderTest < Minitest::Test
-
   def test_that_existing_channel_records_are_deleted
     existing_channel = Channel.create()
     loader = create_loader_that_loads test_data_as_rss
@@ -31,15 +29,12 @@ class RssLoaderTest < Minitest::Test
     rss_items, db_items = test_data.items, Item.all
     assert_items_equal rss_items, db_items
   end
-
 end
-
 
 #
 # Test support functions and data.
 #
 class RssLoaderTest
-
   private
 
   def test_data_as_rss
@@ -117,5 +112,4 @@ class RssLoaderTest
     assert_equal rss_item.guid.to_s,    db_item.guid
     assert_equal rss_item.description,  db_item.description
   end
-
 end

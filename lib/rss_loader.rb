@@ -2,7 +2,6 @@ require 'rss'
 require 'open-uri'
 
 class RssLoader
-
     def load
       purge_existing_data()
       load_data_from_rss_feed()
@@ -49,5 +48,4 @@ class RssLoader
         description:      rss_item.description
       )
     end
-
 end
