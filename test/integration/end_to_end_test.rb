@@ -5,15 +5,10 @@ class EndToEndTest < ActionDispatch::IntegrationTest
 
   def test_that_feeder_caches_an_RSS_feed_and_provides_a_JSON_refeed
     run_rss_loader(test_data_as_rss)
-    # json = get_json()
+    json = get_json_from('/v2/channels')
     # assert_data_equal test_data, json)
 
-    # act
-    get '/v2/channels'
-
     # assert
-    json = JSON.parse(response.body)
-
     channel_from_rss, channel_from_json = test_data.channel, json.first
     assert_channel_equal(channel_from_rss, channel_from_json)
 
@@ -79,6 +74,11 @@ class EndToEndTest
   def run_rss_loader(rss_data_to_load)
     loader = create_loader_that_loads(rss_data_to_load)
     loader.load
+  end
+
+  def get_json_from(url)
+    get url
+    JSON.parse(response.body)
   end
 
   def assert_channel_equal(channel_from_rss, channel_from_json)
