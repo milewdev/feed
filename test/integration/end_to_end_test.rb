@@ -74,21 +74,21 @@ class EndToEndTest
   end
 
   def assert_data_equal(rss, json)
-    channel_from_rss, channel_from_json = parse(rss).channel, json.first
-    assert_channel_equal(channel_from_rss, channel_from_json)
+    rss_channel, json_channel = parse(rss).channel, json.first
+    assert_channel_equal(rss_channel, json_channel)
 
     items_from_rss, items_from_json = parse(rss).channel.items, json.first['items']
     assert_items_equal(items_from_rss, items_from_json)
   end
 
-  def assert_channel_equal(channel_from_rss, channel_from_json)
-    assert_match %r{/v[0-9]+/channels/[0-9]+\.json}, channel_from_json['href']
-    assert_equal channel_from_rss.title, channel_from_json['title']
-    assert_equal channel_from_rss.link, channel_from_json['link']
-    assert_equal channel_from_rss.description, channel_from_json['description']
-    assert_equal to_json_date(channel_from_rss.lastBuildDate), channel_from_json['lastBuildDate']
-    assert_equal channel_from_rss.language, channel_from_json['language']
-    assert_equal channel_from_rss.generator, channel_from_json['generator']
+  def assert_channel_equal(rss_channel, json_channel)
+    assert_match %r{/v[0-9]+/channels/[0-9]+\.json}, json_channel['href']
+    assert_equal rss_channel.title, json_channel['title']
+    assert_equal rss_channel.link, json_channel['link']
+    assert_equal rss_channel.description, json_channel['description']
+    assert_equal to_json_date(rss_channel.lastBuildDate), json_channel['lastBuildDate']
+    assert_equal rss_channel.language, json_channel['language']
+    assert_equal rss_channel.generator, json_channel['generator']
   end
 
   def assert_items_equal(items_from_rss, items_from_json)
