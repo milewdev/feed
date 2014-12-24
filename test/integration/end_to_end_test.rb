@@ -89,15 +89,15 @@ class EndToEndTest
     assert_equal rss_channel.generator,                   json_channel['generator']
   end
 
-  def assert_items_equal(items_from_rss, items_from_json)
-    sorted_from_rss = sort_items_from_rss(items_from_rss)
+  def assert_items_equal(rss_items, items_from_json)
+    sorted_from_rss = sort_rss_items(rss_items)
     sorted_from_json = sort_items_from_json(items_from_json)
-    items_from_rss.zip(items_from_json).each do |item_from_rss, item_from_json|
+    rss_items.zip(items_from_json).each do |item_from_rss, item_from_json|
       assert_item_equal(item_from_rss, item_from_json)
     end
   end
 
-  def sort_items_from_rss(items)
+  def sort_rss_items(items)
     items.sort { |a, b| a.title <=> b.title }
   end
 
