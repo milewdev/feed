@@ -78,12 +78,7 @@ class EndToEndTest < ActionDispatch::IntegrationTest
       assert channel_from_json['title'] == channel_from_rss.title
       assert channel_from_json['link'] == channel_from_rss.link
       assert channel_from_json['description'] == channel_from_rss.description
-
-      # TODO: extract helper method
-      # 2012-04-23T18:25:43.511Z
-      # See http://stackoverflow.com/a/15952652
-      assert channel_from_json['lastBuildDate'] == channel_from_rss.lastBuildDate.utc.strftime('%FT%T.%LZ')
-
+      assert channel_from_json['lastBuildDate'] == to_json_date(channel_from_rss.lastBuildDate)
       assert channel_from_json['language'] == channel_from_rss.language
       assert channel_from_json['generator'] == channel_from_rss.generator
     end
@@ -111,6 +106,12 @@ class EndToEndTest < ActionDispatch::IntegrationTest
       assert item_from_rss.pubDate == item_from_json['pubDate']
       assert item_from_rss.guid.to_s == item_from_json['guid']
       assert item_from_rss.description == item_from_json['description']
+    end
+
+    # 2012-04-23T18:25:43.511Z
+    # See http://stackoverflow.com/a/15952652
+    def to_json_date(date)
+      date.utc.strftime('%FT%T.%LZ')
     end
 
 end
