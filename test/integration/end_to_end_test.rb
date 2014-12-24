@@ -3,13 +3,12 @@ require 'test_helper'
 
 class EndToEndTest < ActionDispatch::IntegrationTest
 
-  test 'feeder caches an RSS feed and provides a JSON refeed' do
-
-    # arrange
-    loader = create_loader_that_loads test_data_as_rss
+  def test_that_feeder_caches_an_RSS_feed_and_provides_a_JSON_refeed
+    run_rss_loader(test_data_as_rss)
+    # json = get_json()
+    # assert_data_equal test_data, json)
 
     # act
-    loader.load
     get '/v2/channels'
 
     # assert
@@ -75,6 +74,11 @@ class EndToEndTest
 
   def test_data
     RSS::Parser.parse(test_data_as_rss)
+  end
+
+  def run_rss_loader(rss_data_to_load)
+    loader = create_loader_that_loads(rss_data_to_load)
+    loader.load
   end
 
   def assert_channel_equal(channel_from_rss, channel_from_json)
