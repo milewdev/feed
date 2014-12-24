@@ -72,15 +72,13 @@ class EndToEndTest < ActionDispatch::IntegrationTest
     end
 
     def assert_channel_equal(channel_from_rss, channel_from_json)
-      # TODO: put expected on the left (or the right?  how is the error reported?)
-      # TODO: use an assertion that reports the two differing values
       assert_match %r{/v[0-9]+/channels/[0-9]+\.json}, channel_from_json['href']
-      assert channel_from_json['title'] == channel_from_rss.title
-      assert channel_from_json['link'] == channel_from_rss.link
-      assert channel_from_json['description'] == channel_from_rss.description
-      assert channel_from_json['lastBuildDate'] == to_json_date(channel_from_rss.lastBuildDate)
-      assert channel_from_json['language'] == channel_from_rss.language
-      assert channel_from_json['generator'] == channel_from_rss.generator
+      assert_equal channel_from_rss.title, channel_from_json['title']
+      assert_equal channel_from_rss.link, channel_from_json['link']
+      assert_equal channel_from_rss.description, channel_from_json['description']
+      assert_equal to_json_date(channel_from_rss.lastBuildDate), channel_from_json['lastBuildDate']
+      assert_equal channel_from_rss.language, channel_from_json['language']
+      assert_equal channel_from_rss.generator, channel_from_json['generator']
     end
 
     def assert_items_equal(items_from_rss, items_from_json)
@@ -100,12 +98,12 @@ class EndToEndTest < ActionDispatch::IntegrationTest
     end
 
     def assert_item_equal(item_from_rss, item_from_json)
-      assert item_from_rss.title == item_from_json['title']
-      assert item_from_rss.link == item_from_json['link']
-      assert item_from_rss.comments == item_from_json['comments']
-      assert item_from_rss.pubDate == item_from_json['pubDate']
-      assert item_from_rss.guid.to_s == item_from_json['guid']
-      assert item_from_rss.description == item_from_json['description']
+      assert_equal item_from_rss.title,       item_from_json['title']
+      assert_equal item_from_rss.link,        item_from_json['link']
+      assert_equal item_from_rss.comments,    item_from_json['comments']
+      assert_equal item_from_rss.pubDate,     item_from_json['pubDate']
+      assert_equal item_from_rss.guid.to_s,   item_from_json['guid']
+      assert_equal item_from_rss.description, item_from_json['description']
     end
 
     # 2012-04-23T18:25:43.511Z
