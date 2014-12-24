@@ -11,8 +11,8 @@ describe 'RssLoader#load' do
   it 'loads all channel fields' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
-    channel_from_rss, channel_from_db = test_data.channel, Channel.all.first
-    assert_channel_equal(channel_from_rss, channel_from_db)
+    rss_channel, db_channel = test_data.channel, Channel.all.first
+    assert_channel_equal(rss_channel, db_channel)
   end
 
   it 'deletes existing item records' do
@@ -26,8 +26,8 @@ describe 'RssLoader#load' do
   it 'loads all item fields for all items' do
     loader = create_loader_that_loads test_data_as_rss
     loader.load
-    items_from_rss, items_from_db = test_data.items, Item.all
-    assert_items_equal(items_from_rss, items_from_db)
+    rss_items, db_items = test_data.items, Item.all
+    assert_items_equal(rss_items, db_items)
   end
 end
 
@@ -80,22 +80,22 @@ def test_data
   RSS::Parser.parse(test_data_as_rss)
 end
 
-def assert_channel_equal(channel_from_rss, channel_from_db)
-  channel_from_rss.title.must_equal           channel_from_db.title
-  channel_from_rss.link.must_equal            channel_from_db.link
-  channel_from_rss.description.must_equal     channel_from_db.description
-  channel_from_rss.lastBuildDate.must_equal   channel_from_db.last_build_date
-  channel_from_rss.language.must_equal        channel_from_db.language
-  channel_from_rss.generator.must_equal       channel_from_db.generator
+def assert_channel_equal(rss_channel, db_channel)
+  rss_channel.title.must_equal           db_channel.title
+  rss_channel.link.must_equal            db_channel.link
+  rss_channel.description.must_equal     db_channel.description
+  rss_channel.lastBuildDate.must_equal   db_channel.last_build_date
+  rss_channel.language.must_equal        db_channel.language
+  rss_channel.generator.must_equal       db_channel.generator
 end
 
 # Note that we sort the items so that we compare item 1 from RSS
 # with item 1 from the db, etc.
-def assert_items_equal(items_from_rss, items_from_db)
-  sorted_from_rss = sort_items(items_from_rss)
-  sorted_from_db = sort_items(items_from_db)
-  sorted_from_rss.zip(sorted_from_db).each do |item_from_rss, item_from_db|
-    assert_item_equal(item_from_rss, item_from_db)
+def assert_items_equal(rss_items, db_items)
+  rss_sorted = sort_items(rss_items)
+  db_sorted = sort_items(db_items)
+  rss_sorted.zip(db_sorted).each do |rss_item, db_item|
+    assert_item_equal(rss_item, db_item)
   end
 end
 
@@ -103,11 +103,11 @@ def sort_items(items)
   items.sort { |a, b| a.title <=> b.title }
 end
 
-def assert_item_equal(item_from_rss, item_from_db)
-  item_from_rss.title.must_equal        item_from_db.title
-  item_from_rss.link.must_equal         item_from_db.link
-  item_from_rss.comments.must_equal     item_from_db.comments
-  item_from_rss.pubDate.must_equal      item_from_db.pub_date
-  item_from_rss.guid.to_s.must_equal    item_from_db.guid
-  item_from_rss.description.must_equal  item_from_db.description
+def assert_item_equal(rss_item, db_item)
+  rss_item.title.must_equal        db_item.title
+  rss_item.link.must_equal         db_item.link
+  rss_item.comments.must_equal     db_item.comments
+  rss_item.pubDate.must_equal      db_item.pub_date
+  rss_item.guid.to_s.must_equal    db_item.guid
+  rss_item.description.must_equal  db_item.description
 end
