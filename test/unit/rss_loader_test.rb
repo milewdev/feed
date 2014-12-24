@@ -1,11 +1,15 @@
 require 'test_helper'
 
+class RssLoaderTest < Minitest::Test
+
+end
+
 describe 'RssLoader#load' do
   it 'deletes existing channel records' do
     existing_channel = Channel.create()
     loader = create_loader_that_loads test_data_as_rss
     loader.load
-    Channel.exists?(existing_channel.id).must_equal false
+    refute Channel.exists?(existing_channel.id)
   end
 
   it 'loads all channel fields' do
@@ -20,7 +24,7 @@ describe 'RssLoader#load' do
     existing_item = existing_channel.items.create()
     loader = create_loader_that_loads test_data_as_rss
     loader.load
-    Item.exists?(existing_item.id).must_equal false
+    refute Item.exists?(existing_item.id)
   end
 
   it 'loads all item fields for all items' do
