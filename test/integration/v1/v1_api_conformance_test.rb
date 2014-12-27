@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class V1ApiConformanceTest < ActionDispatch::IntegrationTest
-  def test_that_feeder_caches_an_RSS_feed_and_provides_a_JSON_refeed
+  def test_expected_normal_behaviour
     run_rss_loader_with(rss)
     json = get_json_from('/v2/channels')
     assert_data_equal(rss, json)
