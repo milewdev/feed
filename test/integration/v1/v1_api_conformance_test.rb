@@ -2,9 +2,9 @@ require 'test_helper'
 
 class V1ApiConformanceTest < ActionDispatch::IntegrationTest
   def test_expected_normal_behaviour
-    run_rss_loader_with(rss)
-    json = get_json_from('/v2/channels')
-    assert_data_equal(rss, json)
+    run_rss_loader_using(rss)
+    actual_json = get_json_from('/v2/channels')
+    assert_data_equal(rss, actual_json)
   end
 end
 
@@ -58,7 +58,7 @@ class V1ApiConformanceTest
     RSS::Parser.parse(rss)
   end
 
-  def run_rss_loader_with(rss)
+  def run_rss_loader_using(rss)
     loader = create_loader_that_loads(rss)
     loader.load
   end
