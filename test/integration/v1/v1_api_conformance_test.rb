@@ -59,11 +59,4 @@ class V1ApiConformanceTest
     end
     JSON.generate(hash_of_db_data)
   end
-
-  # 2012-04-23T18:25:43.511Z
-  # See http://stackoverflow.com/a/15952652
-  # TODO: duplicated in end_to_end_test.rb; extract to helper library
-  def to_json_date(date)
-    date.utc.strftime('%FT%T.%LZ')
-  end
 end

@@ -108,10 +108,4 @@ class EndToEndTest
     assert_equal rss_item.guid.to_s,   json_item['guid']
     assert_equal rss_item.description, json_item['description']
   end
-
-  # 2012-04-23T18:25:43.511Z
-  # See http://stackoverflow.com/a/15952652
-  def to_json_date(date)
-    date.utc.strftime('%FT%T.%LZ')
-  end
 end

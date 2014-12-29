@@ -28,3 +28,10 @@ class ActionDispatch::IntegrationTest
   # Tests do not work unless transactional fixtures are not used; do not know why yet.
   self.use_transactional_fixtures = false
 end
+
+# 2012-04-23T18:25:43.511Z
+# See http://stackoverflow.com/a/15952652
+# TODO: is there a better place to put this common method?
+def to_json_date(date)
+	date.utc.strftime('%FT%T.%LZ')
+end
