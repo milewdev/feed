@@ -4,7 +4,6 @@ class V1::FeedItemsController < ApplicationController
   def index
     @feed_items = Item.all
 
-    # render json: @feed_items
     render template: 'v1/feed_items/index.json.jbuilder'
   end
 
