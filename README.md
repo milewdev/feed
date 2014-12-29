@@ -41,6 +41,9 @@ or [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
 
 ###Release Notes
 
+####v2.0.3
+- Implement v1 interface using v2 db tables (drop feed_items, use items instead).
+
 ####v2.0.2
 - Refactor test code.
 
