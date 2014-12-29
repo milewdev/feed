@@ -4,7 +4,7 @@ class V1ApiConformanceTest < ActionDispatch::IntegrationTest
   def test_expected_normal_behaviour
     load_db_with_test_data
     actual_json = get_json_from('/v1/feed_items')
-    assert_match expected_json_regexp, actual_json
+    assert_equal expected_json, actual_json
   end
 end
 
@@ -20,25 +20,25 @@ class V1ApiConformanceTest
     FeedItem.create( id:2, title: 'title2', guid: 'guid2', created_at: '2014-12-29T08:43:27.002Z', updated_at: '2014-12-29T08:43:27.003Z' )
   end
 
-  def expected_json_regexp
-    %r{
-      \[
-        \{
-          "id":1,
-          "title":"title1",
-          "guid":"guid1",
-          "created_at":"2014-12-29T08:43:27.000Z",
-          "updated_at":"2014-12-29T08:43:27.001Z"
-        \},
-        \{
-          "id":2,
-          "title":"title2",
-          "guid":"guid2",
-          "created_at":"2014-12-29T08:43:27.002Z",
-          "updated_at":"2014-12-29T08:43:27.003Z"
-        \}
-      \]
-    }x
+  def expected_json
+    <<-EOS.gsub(/\s/, '')
+      [
+        {
+          "id": 1,
+          "title": "title1",
+          "guid": "guid1",
+          "created_at": "2014-12-29T08:43:27.000Z",
+          "updated_at": "2014-12-29T08:43:27.001Z"
+        },
+        {
+          "id": 2,
+          "title": "title2",
+          "guid": "guid2",
+          "created_at": "2014-12-29T08:43:27.002Z",
+          "updated_at": "2014-12-29T08:43:27.003Z"
+        }
+      ]
+    EOS
   end
 
   def get_json_from(url)
