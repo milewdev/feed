@@ -10,7 +10,7 @@ class V1ApiConformanceTest < ActionDispatch::IntegrationTest
   def test_no_data
     clear_db
     actual_json = get_json_from('/v1/feed_items')
-    assert_equal expected_json2, actual_json
+    assert_equal expected_json, actual_json
   end
 end
 
@@ -53,10 +53,6 @@ class V1ApiConformanceTest
       }
     end
     JSON.generate(hash_of_db_data)
-  end
-
-  def expected_json2
-    '[]'
   end
 
   def get_json_from(url)
