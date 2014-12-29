@@ -2,7 +2,7 @@ require 'test_helper'
 
 class V1::FeedItemsControllerTest < ActionController::TestCase
   setup do
-    @feed_item = feed_items(:one)
+    @feed_item = items(:one)
   end
 
   test "should get index" do

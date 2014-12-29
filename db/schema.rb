@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141223035455) do
+ActiveRecord::Schema.define(version: 20141229164110) do
 
   create_table "channels", force: :cascade do |t|
     t.string   "title"
@@ -23,15 +23,6 @@ ActiveRecord::Schema.define(version: 20141223035455) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
-
-  create_table "feed_items", force: :cascade do |t|
-    t.string   "title"
-    t.string   "guid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "feed_items", ["guid"], name: "index_feed_items_on_guid", unique: true
 
   create_table "items", force: :cascade do |t|
     t.string   "title"
