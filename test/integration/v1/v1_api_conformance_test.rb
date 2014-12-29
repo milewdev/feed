@@ -3,13 +3,13 @@ require 'test_helper'
 class V1ApiConformanceTest < ActionDispatch::IntegrationTest
   def test_expected_normal_behaviour
     load_db_with_test_data
-    actual_json = call_v1_api('/v1/feed_items')
+    actual_json = call_v1_api
     assert_equal expected_json, actual_json
   end
 
   def test_no_data
     clear_db
-    actual_json = call_v1_api('/v1/feed_items')
+    actual_json = call_v1_api
     assert_equal expected_json, actual_json
   end
 end
@@ -55,8 +55,8 @@ class V1ApiConformanceTest
     JSON.generate(hash_of_db_data)
   end
 
-  def call_v1_api(url)
-    get url
+  def call_v1_api
+    get '/v1/feed_items'
     response.body
   end
 
