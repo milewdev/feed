@@ -21,19 +21,19 @@ class V1ApiConformanceTest
   private
 
   def clear_db
-    FeedItem.delete_all
+    Item.delete_all
   end
 
   def load_db_with_test_data
     clear_db
-    FeedItem.create( 
+    Item.create( 
       id: 1,
       title: 'title1',
       guid: 'guid1',
       created_at: '2014-12-29T08:43:27.000Z',
       updated_at: '2014-12-29T08:43:27.001Z'
     )
-    FeedItem.create( 
+    Item.create( 
       id: 2,
       title: 'title2',
       guid: 'guid2',
@@ -48,7 +48,7 @@ class V1ApiConformanceTest
   end
 
   def expected_json
-    hash_of_db_data = FeedItem.all.map do |item|
+    hash_of_db_data = Item.all.map do |item|
       {
         id: item.id,
         title: item.title,
