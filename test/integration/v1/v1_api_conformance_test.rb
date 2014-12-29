@@ -42,6 +42,11 @@ class V1ApiConformanceTest
     )
   end
 
+  def call_v1_api
+    get '/v1/feed_items'
+    response.body
+  end
+
   def expected_json
     hash_of_db_data = FeedItem.all.map do |item|
       {
@@ -53,11 +58,6 @@ class V1ApiConformanceTest
       }
     end
     JSON.generate(hash_of_db_data)
-  end
-
-  def call_v1_api
-    get '/v1/feed_items'
-    response.body
   end
 
   # 2012-04-23T18:25:43.511Z
