@@ -4,7 +4,7 @@ class V1ApiConformanceTest < ActionDispatch::IntegrationTest
   def test_expected_normal_behaviour
     run_rss_loader_using(rss)
     actual_json = get_json_from('/v1/feed_items')
-    assert_json_equal expected_json_regexp, actual_json
+    assert_match expected_json_regexp, actual_json
   end
 end
 
@@ -83,9 +83,5 @@ class V1ApiConformanceTest
   def get_json_from(url)
     get url
     response.body
-  end
-
-  def assert_json_equal(expected_json_regexp, actual_json)
-    assert_match expected_json_regexp, actual_json
   end
 end
