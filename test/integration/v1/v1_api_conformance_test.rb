@@ -14,8 +14,12 @@ end
 class V1ApiConformanceTest
   private
 
-  def load_db_with_test_data
+  def clear_db
     FeedItem.delete_all
+  end
+
+  def load_db_with_test_data
+    clear_db
     FeedItem.create( 
       id: 1,
       title: 'title1',
