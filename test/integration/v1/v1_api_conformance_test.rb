@@ -16,8 +16,20 @@ class V1ApiConformanceTest
 
   def load_db_with_test_data
     FeedItem.delete_all
-    FeedItem.create( id:1, title: 'title1', guid: 'guid1', created_at: '2014-12-29T08:43:27.000Z', updated_at: '2014-12-29T08:43:27.001Z' )
-    FeedItem.create( id:2, title: 'title2', guid: 'guid2', created_at: '2014-12-29T08:43:27.002Z', updated_at: '2014-12-29T08:43:27.003Z' )
+    FeedItem.create( 
+      id: 1,
+      title: 'title1',
+      guid: 'guid1',
+      created_at: '2014-12-29T08:43:27.000Z',
+      updated_at: '2014-12-29T08:43:27.001Z'
+    )
+    FeedItem.create( 
+      id: 2,
+      title: 'title2',
+      guid: 'guid2',
+      created_at: '2014-12-29T08:43:27.002Z',
+      updated_at: '2014-12-29T08:43:27.003Z'
+    )
   end
 
   def expected_json
