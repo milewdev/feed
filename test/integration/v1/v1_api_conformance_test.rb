@@ -3,8 +3,8 @@ require 'test_helper'
 class V1ApiConformanceTest < ActionDispatch::IntegrationTest
   def test_expected_normal_behaviour
     run_rss_loader_using(rss)
-    actual_json = get_json_from('/v2/channels')
-    assert_data_equal(rss, actual_json)
+    actual_json = get_json_from('/v1/feed_items')
+    assert_json_equal expected_json_regexp, actual_json
   end
 end
 
@@ -54,6 +54,55 @@ class V1ApiConformanceTest
     EOS
   end
 
+  def expected_json_regexp
+    # subs = {}
+    # x = <<-'EOS'
+    #   [
+    #     {
+    #       "id": %r{\d+},
+    #       "title": "test article 2", 
+    #       "guid": "ta2", 
+    #       "created_at": "%r{\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z}", 
+    #       "updated_at": "%r{\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z}"
+    #     }, 
+    #     {
+    #       "id": %r{\d+}, 
+    #       "title": "test article 1",
+    #       "guid": "ta1", 
+    #       "created_at": "%r{\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z}", 
+    #       "updated_at": "%r{\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z}"
+    #     }
+    #   ]
+    # EOS
+    #   .gsub( /%r\{(.+)\}/ ).with_index do |match, index|  # replace all regexes with standins
+    #     subs["___#{index}___"] = $1
+    #     "___#{index}___"
+    #    end
+    #   .gsub( /\s+(?=([^"]*"[^"]*")*[^"]*$)/, '' )         # remove whitespace outside quotes (see http://stackoverflow.com/a/9584469)
+    # x = Regexp.escape(x)
+    #   .gsub( /___(\d+)___/, subs )                        # replace standins with their original regexes
+    # /^#{x}$/
+
+    %r{
+      \[
+        \{
+          "id":\d+,
+          "title":"test\sarticle\s2",
+          "guid":"ta2",
+          "created_at":"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z",
+          "updated_at":"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z"
+        \},
+        \{
+          "id":\d+,
+          "title":"test\sarticle\s1",
+          "guid":"ta1",
+          "created_at":"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z",
+          "updated_at":"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z"
+        \}
+      \]
+    }x
+  end
+
   def parse(rss)
     RSS::Parser.parse(rss)
   end
@@ -65,7 +114,11 @@ class V1ApiConformanceTest
 
   def get_json_from(url)
     get url
-    JSON.parse(response.body)
+    response.body
+  end
+
+  def assert_json_equal(expected_json_regexp, actual_json)
+    assert_match expected_json_regexp, actual_json
   end
 
   def assert_data_equal(rss, json)
