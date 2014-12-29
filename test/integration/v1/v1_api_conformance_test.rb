@@ -6,6 +6,12 @@ class V1ApiConformanceTest < ActionDispatch::IntegrationTest
     actual_json = get_json_from('/v1/feed_items')
     assert_equal expected_json, actual_json
   end
+
+  def test_no_data
+    clear_db
+    actual_json = get_json_from('/v1/feed_items')
+    assert_equal expected_json2, actual_json
+  end
 end
 
 #
@@ -55,6 +61,10 @@ class V1ApiConformanceTest
         }
       ]
     EOS
+  end
+
+  def expected_json2
+    '[]'
   end
 
   def get_json_from(url)
