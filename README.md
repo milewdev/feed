@@ -33,13 +33,14 @@ $
 - The application was created using [rails-api](https://github.com/rails-api/rails-api)
 and therefore serves json responses.
 
-- The feed:refresh (v1) and rss_loader:load (v2) Rake tasks should be run say
-once every hour using something like [cron](http://en.wikipedia.org/wiki/Cron)
-or [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
-
+- The ss_loader:load (v2) Rake task should be run say once every hour using
+something like [cron](http://en.wikipedia.org/wiki/Cron) or [Heroku
+Scheduler](https://devcenter.heroku.com/articles/scheduler).
 
 
 ###Release Notes
+
+####v2.1.0
 
 ####v2.0.3
 - Add v1 api conformance test.
@@ -60,8 +61,13 @@ or [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
 - Add rss_loader:load Rake task responsible for invoking RssLoader.
 - Reformat JSON to include channel data and item data as a child of channel.
 
-
 ####v1.0.0
 - Initial release.
 - URL is /v1/feed_items
 - Add root shortcut / to /v1/feed_items#index
+
+
+###Roadmap
+
+- add v2 api conformance tests
+- add api version number to returned json data (v2 interface and above only)
